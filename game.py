@@ -1,4 +1,5 @@
 import pygame
+import controls
 from ship import Ship
 
 
@@ -16,10 +17,8 @@ def run():
     ship = Ship(window)
 
     while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-                break
+        controls.update(ship)
+        ship.update()
 
         window.fill("black")
         ship.render()
