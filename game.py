@@ -1,5 +1,6 @@
-import pygame
 import controls
+import pygame
+from pygame.sprite import Group
 from ship import Ship
 
 
@@ -15,14 +16,14 @@ def run():
     pygame.display.set_caption("Space Invaders")
 
     ship = Ship(window)
+    bullets = Group()
 
     while running:
-        controls.update(ship)
+        controls.update(window, ship, bullets)
         ship.update()
 
-        window.fill("black")
-        ship.render()
-        pygame.display.flip()
+        controls.refresh("black", window, ship, bullets)
+        controls.update_bullets(bullets)
 
 
 run()
