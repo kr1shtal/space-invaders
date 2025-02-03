@@ -17,13 +17,17 @@ def run():
 
     ship = Ship(window)
     bullets = Group()
+    crabs = Group()
+
+    controls.create_army(window, crabs)
 
     while running:
         controls.update(window, ship, bullets)
         ship.update()
 
-        controls.refresh("black", window, ship, bullets)
+        controls.refresh("black", window, ship, crabs, bullets)
         controls.update_bullets(bullets)
+        controls.move_crab(crabs)
 
 
 run()
