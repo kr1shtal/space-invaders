@@ -25,3 +25,6 @@ class Ship:
         screen.fill(bg_color)
         ship.render()
         pygame.display.flip()
+
+    def create_ship(self):
+        self.center = self.screen_rect.centerx

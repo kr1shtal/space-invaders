@@ -1,3 +1,5 @@
+import time
+
 import pygame
 from bullet import Bullet
 from crab import Crab
@@ -35,15 +37,40 @@ def refresh(bg_color, screen, ship, crabs, bullets):
     pygame.display.flip()
 
 
-def update_bullets(bullets):
+def update_bullets(screen, crabs, bullets):
     bullets.update()
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
 
+    collisions = pygame.sprite.groupcollide(bullets, crabs, True, True)
+    if len(crabs) == 0:
+        bullets.empty()
+        create_army(screen, crabs)
 
-def move_crab(crabs):
+
+def move_crab(stats, screen, ship, crabs, bullets):
     crabs.update()
+    if pygame.sprite.spritecollideany(ship, crabs):
+        ship_death(stats, screen, ship, crabs, bullets)
+    crabs_check(stats, screen, ship, crabs, bullets)
+
+
+def ship_death(stats, screen, ship, crabs, bullets):
+    stats.ship_life -= 1
+    crabs.empty()
+    bullets.empty()
+    create_army(screen, crabs)
+    ship.create_ship()
+    time.sleep(1)
+
+
+def crabs_check(stats, screen, ship, crabs, bullets):
+    screen_rect = screen.get_rect()
+    for crab in crabs.sprites():
+        if crab.rect.bottom >= screen_rect.bottom:
+            ship_death(stats, screen, ship, crabs, bullets)
+            break
 
 
 def create_army(screen, crabs):

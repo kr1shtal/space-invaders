@@ -2,6 +2,7 @@ import controls
 import pygame
 from pygame.sprite import Group
 from ship import Ship
+from stats import Stats
 
 
 def run():
@@ -18,6 +19,7 @@ def run():
     ship = Ship(window)
     bullets = Group()
     crabs = Group()
+    stats = Stats()
 
     controls.create_army(window, crabs)
 
@@ -26,8 +28,8 @@ def run():
         ship.update()
 
         controls.refresh("black", window, ship, crabs, bullets)
-        controls.update_bullets(bullets)
-        controls.move_crab(crabs)
+        controls.update_bullets(window, crabs, bullets)
+        controls.move_crab(stats, window, ship, crabs, bullets)
 
 
 run()
