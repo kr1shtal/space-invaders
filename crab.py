@@ -9,7 +9,7 @@ class Crab(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.rect.width
         self.rect.y = self.rect.height
-        self.x = self.rect.x  # cast to float
+        self.x = self.rect.x
         self.y = self.rect.y
 
     def render(self):
